@@ -1,50 +1,480 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MEDICO GEMING TZS</title>
-<style>https://claude.ai/artifact/TSX6LtYsPH3VJNmjNxkikp
-body{margin:0;font-family:Arial;background:#101827;color:white;text-align:center}
-header{background:#087d43;padding:30px 10px}
-h1{color:#fff;font-size:28px}
-main{padding:20px}
-.card{background:#1e293b;margin:15px auto;padding:22px;border-radius:12px;max-width:400px}
-a{display:inline-block;background:#087d43;color:white;padding:12px 22px;border-radius:8px;text-decoration:none}
-footer{padding:20px;color:#aaa}
+<meta name="theme-color" content="#111b31">
+<title>MEDICO GAMING TZ</title>
+
+<style>
+:root {
+  --bg:#111b31;
+  --panel:#1b263e;
+  --line:#2a3653;
+  --muted:#9aa7c0;
+  --white:#f5f6fb;
+  --coral:#e87572;
+  --pink:#e64b78;
+}
+* {box-sizing:border-box;}
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+}
+
+.page {
+  width:min(100%,760px);
+  margin:auto;
+  padding:18px 16px 42px;
+}
+
+.install-banner {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:20px;
+  margin:10px 0 24px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:#1a243b;
+  font-size:19px;
+  font-weight:bold;
+}
+
+button,a {cursor:pointer;}
+
+.install-btn {
+  background:var(--coral);
+  border:0;
+  border-radius:999px;
+  padding:15px 25px;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+.brand-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:4px 0 26px;
+}
+
+.brand {
+  font-size:35px;
+  line-height:1.4;
+  font-weight:bold;
+}
+
+.brand small {display:block;}
+
+.brand-actions {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.theme-btn,.admin-btn {
+  border:1px solid var(--line);
+  background:#1a243b;
+  color:white;
+  border-radius:999px;
+  padding:13px 20px;
+  font-weight:bold;
+}
+
+.theme-btn {font-size:22px;}
+
+.socials {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.social-card {
+  min-height:150px;
+  border-radius:30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  color:white;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.social-card span {font-size:35px;}
+
+.tiktok {
+  background:linear-gradient(135deg,#20c9bd,#d52e62);
+}
+
+.champions {
+  background:linear-gradient(135deg,#e18480,#68718f);
+}
+
+.youtube {
+  background:linear-gradient(135deg,#ff414b,#c80e19);
+}
+
+.admin-panel {
+  display:none;
+  margin:18px 0;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:var(--panel);
+}
+
+.admin-panel.show {display:block;}
+
+.search-wrap {margin:26px 0 18px;}
+
+.search {
+  width:100%;
+  border:2px solid var(--line);
+  border-radius:999px;
+  background:#1a243b;
+  color:white;
+  padding:20px 26px;
+  font-size:19px;
+}
+
+.search::placeholder {color:#77849d;}
+
+.filters {
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:4px 0 18px;
+}
+
+.filter-btn {
+  background:#1a243b;
+  color:var(--muted);
+  border:2px solid var(--line);
+  border-radius:999px;
+  padding:13px 22px;
+  white-space:nowrap;
+  font-size:17px;
+}
+
+.filter-btn.active {
+  background:var(--coral);
+  color:white;
+  border-color:var(--coral);
+}
+
+.rule {
+  height:2px;
+  background:#35425c;
+  margin-bottom:10px;
+}
+
+.games {
+  display:grid;
+  gap:20px;
+}
+
+.game-card {
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:34px;
+  background:var(--panel);
+}
+
+.game-cover {
+  height:390px;
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  padding:26px;
+  background:linear-gradient(135deg,#21849a,#294b7a);
+}
+
+.game-cover h2 {
+  position:relative;
+  z-index:1;
+  margin:0;
+  font-size:40px;
+}
+
+.tag {
+  position:absolute;
+  top:22px;
+  left:22px;
+  background:var(--pink);
+  padding:9px 18px;
+  border-radius:999px;
+  font-weight:bold;
+}
+
+.game-info {padding:22px 24px 25px;}
+
+.game-info h3 {
+  margin:0 0 10px;
+  font-size:25px;
+}
+
+.date {
+  color:var(--muted);
+  font-size:17px;
+  font-style:italic;
+}
+
+.description {
+  color:#c5cde0;
+  line-height:1.6;
+}
+
+.download {
+  display:inline-block;
+  text-decoration:none;
+  background:var(--coral);
+  color:white;
+  font-weight:bold;
+  padding:12px 22px;
+  border-radius:999px;
+}
+
+.empty {
+  display:none;
+  text-align:center;
+  color:var(--muted);
+  padding:32px;
+}
+
+footer {
+  text-align:center;
+  color:var(--muted);
+  padding:30px 0;
+}
+
+@media(max-width:430px) {
+  .socials {gap:10px;}
+  .social-card {
+    min-height:135px;
+    font-size:16px;
+    border-radius:25px;
+  }
+  .game-cover {height:340px;}
+}
 </style>
 </head>
+
 <body>
-<header>
-<h1>MEDICO GEMING TZS 🇹🇿</h1>
-<p>ALL GEMUS FREE 💀🔥</p>
+
+<main class="page">
+
+<section class="install-banner">
+  <span>Weka MEDICO GAMING<br>kwenye simu</span>
+  <button class="install-btn" id="installBtn">Install</button>
+</section>
+
+<header class="brand-row">
+  <div class="brand">
+    🎮 MEDICO
+    <small>GAMING TZ</small>
+  </div>
+
+  <div class="brand-actions">
+    <button class="theme-btn" id="themeBtn">🌗</button>
+    <button class="admin-btn" id="adminBtn">Admin</button>
+  </div>
 </header>
-<main>
-<div class="card">
-<h2>🎮 PSP GAMES</h2>
-<p>Enjoy PSP games on Android</p>
-</div>
-<div class="card">
-<h2>📱 ANDROID GAMES</h2>
-<p>Discover Android games</p>
-</div>
-<div class="card">
-<h2>💻 PC GAMES</h2>
-<p>Explore PC games</p>
-</div>
-<div class="card">
-<h2>JOIN OUR CHANNEL</h2>
-<a href="https://t.me/">JOIN TELEGRAM</a>
-</div>
-<div class="card">
-<h2>JOIN OUR WHATSAPP CHANNEL 🇹🇿</h2>
-<p>Follow MEDICO GEMING TZS for free games!</p>
-<a href="https://whatsapp.com/channel/0029VbDtRSx3AzNTWMvecv40" target="_blank">
-JOIN CHANNEL
+
+<nav class="socials">
+
+<a class="social-card tiktok"
+href="https://www.tiktok.com/" target="_blank">
+<span>♪</span>TikTok
 </a>
+
+<a class="social-card champions" href="#">
+<span>🏆</span>Mashindano
+</a>
+
+<a class="social-card youtube"
+href="https://www.youtube.com/" target="_blank">
+<span>▶</span>YouTube
+</a>
+
+</nav>
+
+<section class="admin-panel" id="adminPanel">
+<strong>Sehemu ya Admin</strong>
+<p>Karibu MEDICO GAMING TZ.</p>
+</section>
+
+<div class="search-wrap">
+<input class="search" id="searchInput"
+type="search" placeholder="Tafuta game...">
 </div>
-  
+
+<nav class="filters">
+<button class="filter-btn active" data-filter="zote">Zote</button>
+<button class="filter-btn" data-filter="bure">Bure</button>
+<button class="filter-btn" data-filter="kulipia">Kulipia</button>
+<button class="filter-btn" data-filter="offline">Offline</button>
+</nav>
+
+<div class="rule"></div>
+
+<section class="games" id="games">
+
+<article class="game-card"
+data-type="bure offline"
+data-name="supertuxkart">
+
+<div class="game-cover">
+<span class="tag">Bure</span>
+<h2>SuperTuxKart</h2>
+</div>
+
+<div class="game-info">
+<h3>SuperTuxKart</h3>
+
+<p class="date">Ago 18, 2026</p>
+
+<p class="description">
+Mchezo wa mashindano ya magari.
+Karibu MEDICO GAMING TZ.
+</p>
+
+<a class="download" href="#" target="_blank">
+Pakua Game
+</a>
+
+</div>
+</article>
+
+</section>
+
+<p class="empty" id="emptyMessage">
+Hakuna game iliyopatikana.
+</p>
+
+<footer>
+© 2026 MEDICO GAMING TZ 🇹🇿
+</footer>
+
 </main>
-<footer>© 2026 MEDICO GEMING TZS</footer>
+
+<script>
+
+const searchInput =
+document.getElementById('searchInput');
+
+const filterButtons =
+document.querySelectorAll('.filter-btn');
+
+const gameCards =
+[...document.querySelectorAll('.game-card')];
+
+const emptyMessage =
+document.getElementById('emptyMessage');
+
+let activeFilter = 'zote';
+
+function filterGames() {
+
+const term =
+searchInput.value.trim().toLowerCase();
+
+let visible = 0;
+
+gameCards.forEach(card => {
+
+const matchesName =
+(card.dataset.name + ' ' + card.innerText)
+.toLowerCase().includes(term);
+
+const matchesType =
+activeFilter === 'zote' ||
+card.dataset.type.split(' ').includes(activeFilter);
+
+const show = matchesName && matchesType;
+
+card.style.display = show ? '' : 'none';
+
+if(show) visible++;
+
+});
+
+emptyMessage.style.display =
+visible ? 'none' : 'block';
+
+}
+
+searchInput.addEventListener('input',filterGames);
+
+filterButtons.forEach(button => {
+
+button.addEventListener('click',() => {
+
+filterButtons.forEach(item =>
+item.classList.remove('active'));
+
+button.classList.add('active');
+
+activeFilter = button.dataset.filter;
+
+filterGames();
+
+});
+
+});
+
+document.getElementById('themeBtn')
+.addEventListener('click',() => {
+
+document.body.classList.toggle('light');
+
+});
+
+document.getElementById('adminBtn')
+.addEventListener('click',() => {
+
+document.getElementById('adminPanel')
+.classList.toggle('show');
+
+});
+
+let installPrompt;
+
+window.addEventListener('beforeinstallprompt',event => {
+
+event.preventDefault();
+installPrompt = event;
+
+});
+
+document.getElementById('installBtn')
+.addEventListener('click',async () => {
+
+if(!installPrompt) {
+
+alert('Fungua menyu ya browser kisha chagua Add to Home screen.');
+
+return;
+
+}
+
+installPrompt.prompt();
+
+await installPrompt.userChoice;
+
+installPrompt = null;
+
+});
+
+</script>
+
 </body>
-</html>
+  </html>
