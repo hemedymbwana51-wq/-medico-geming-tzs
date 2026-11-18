@@ -1,0 +1,254 @@
+!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MEDICO GAMING TZ</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#131b2e">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#131b2e;--card:#1a2338;--ink:#f1f4fb;--mute:#9aa7c0;--line:#2b3753;--acc:#e0706a;--acc2:#7fb3ff;--on:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{--bg:#f4f6fb;--card:#fff;--ink:#16202e;--mute:#5d6b80;--line:#dde3ee;--acc2:#1f7a8c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.admin{--bg:#0b1a16;--card:#12281f;--line:#24443a;--mute:#93b5a8;--ink:#e9f6f0}}
+:root[data-theme="dark"] body.admin{--bg:#0b1a16;--card:#12281f;--line:#24443a;--mute:#93b5a8;--ink:#e9f6f0}
+body.admin{--bg:#eaf5f1;--card:#fff;--line:#cfe3da;--acc:#0f8b6d;--acc2:#6c4ad9;--mute:#4f6b60;--ink:#10241d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
+.wrap{max-width:720px;margin:0 auto;padding:16px}
+header{display:flex;align-items:center;gap:8px;justify-content:space-between}
+h1{font-size:1.4rem;margin:0}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 16px;border-radius:99px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+.btn.p{background:var(--acc);border-color:var(--acc);color:var(--on)}
+.btn.d{color:#d33}.btn:disabled{opacity:.6;cursor:default}
+.banner{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0;padding:14px 16px;border-radius:18px;background:linear-gradient(120deg,var(--acc),#f08a4b);color:#fff}
+.banner b{font-size:1.05rem}.banner small{display:block;opacity:.9}
+.banner .btn{background:#fff;color:#222;border:0;white-space:nowrap}
+input,select,textarea{width:100%;padding:11px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+input[type=search]{border-radius:99px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0}
+.chip{flex:none;padding:7px 18px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--mute);font:inherit;font-weight:600;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:18px}
+.cover{height:230px;position:relative;display:flex;align-items:flex-end;padding:14px;font-size:1.7rem;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.tag{position:absolute;top:12px;left:12px;background:#e8506a;color:#fff;font-size:.8rem;font-weight:700;padding:3px 12px;border-radius:99px;text-shadow:none}
+.tag.pr{background:#d49a00}
+.body{padding:14px 16px}
+.body h2{margin:0;font-size:1.15rem}
+.body p{margin:6px 0;color:var(--mute);font-size:.92rem}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.tags span{font-size:.75rem;color:var(--acc2);border:1px solid var(--line);padding:2px 10px;border-radius:99px}
+.act{display:flex;gap:8px;justify-content:space-between;border-top:1px solid var(--line);padding-top:12px;margin-top:10px}
+.empty{text-align:center;color:var(--mute);padding:20px}
+dialog{border:0;border-radius:22px;padding:0;max-width:420px;width:calc(100% - 32px);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.dlg{padding:20px}.dlg h3{margin:0 0 4px}.dlg input{margin-top:8px}
+.box{border:2px dashed var(--acc);border-radius:14px;padding:10px 14px;margin:10px 0}
+.box b{font-size:1.1rem}
+.dlg ol{margin:8px 0;padding-left:20px;font-size:.88rem;color:var(--mute)}
+.row{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+.note{font-size:.78rem;color:var(--mute)}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;text-align:center}
+#toast.on{opacity:1}
+.top{background:var(--acc);color:#fff;margin:-16px -16px 16px;padding:16px;border-radius:0 0 22px 22px}
+.top .btn{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.stat b{display:block;font-size:1.4rem;color:var(--acc)}.stat span{font-size:.78rem;color:var(--mute)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:16px}
+.panel h2{margin:0 0 10px;font-size:1.1rem}
+.panel label{display:block;font-size:.82rem;font-weight:600;margin:10px 0 4px;color:var(--mute)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.sw{flex:none;width:44px;height:44px;border-radius:12px}
+.item div{flex:1;min-width:0}.item b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item small{color:var(--mute)}
+.req{border-top:1px solid var(--line);padding:12px 0}
+.req img{width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin-top:8px;background:var(--bg)}
+.act .btn:last-child{color:var(--acc)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.tile{border:0;border-radius:18px;padding:16px 6px;color:#fff;font:inherit;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px}
+.tile span{font-size:1.6rem}.tk{background:linear-gradient(135deg,#17d0c6,#d9254f)}.tr{background:linear-gradient(135deg,#d97a72,#5a6a8c)}.yt{background:linear-gradient(135deg,#ff4a4a,#c4161c)}
+.inst{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 14px;margin-bottom:12px}
+.cover{height:230px}.body h2{font-size:1.3rem}
+.body p.ds{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hero{border-radius:24px;padding:22px 20px;margin:12px 0;background:linear-gradient(120deg,#2b4c7e,#e0706a);color:#fff}
+.hero h2{margin:0;font-size:1.3rem}.hero p{margin:4px 0 0;opacity:.9;font-size:.9rem}
+.hero{display:flex;align-items:center;gap:14px}.hero img{width:84px;height:84px;border-radius:18px;object-fit:cover;flex:none}
+.lg{width:34px;height:34px;border-radius:10px;vertical-align:middle;object-fit:cover}
+#gate{min-height:85vh;display:flex;align-items:center;justify-content:center}
+.gatebox{width:100%;max-width:380px;text-align:center}.gatebox input{margin-top:10px}
+.glogo{width:210px;height:210px;border-radius:30px;object-fit:cover;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section id="gate" class="hide"><div class="gatebox"><img class="glogo" src="logo.jpg" alt="MEDICO GAMING TZ">
+<h2>Karibu MEDICO GAMING TZ</h2><p class="note">Jisajili au ingia ili kuendelea. Tumia namba yako ya simu na nenosiri la herufi 6 au zaidi.</p>
+<input type="tel" id="gp2" placeholder="Namba ya simu (07xx xxx xxx)" aria-label="Namba ya simu"><input type="password" id="gw2" placeholder="Nenosiri" aria-label="Nenosiri">
+<div class="row" style="justify-content:center"><button class="btn" id="gsign">Jisajili</button><button class="btn p" id="glogin">Ingia</button></div></div></section>
+<section id="site">
+<div class="inst" id="inst"><b>Weka MEDICO GAMING kwenye simu</b><button class="btn p" id="instb">Install</button></div>
+<header>
+  <h1><img class="lg" src="logo.jpg" alt="Logo"> MEDICO GAMING TZ</h1>
+  <div><button class="btn" id="acc">Ingia</button> <button class="btn" id="theme" aria-label="Badilisha mwonekano">🌓</button> <button class="btn" data-go="admin">Admin</button></div>
+</header>
+<div class="hero"><img src="logo.jpg" alt="MEDICO GAMING TZ"><div><h2>MEDICO GAMING TZ 🇹🇿</h2><p>Games za Android, PC na PSP · Bure na Premium</p></div></div>
+<div class="banner"><div><b>Games za Premium zimefungwa</b><small>Lipia, tuma picha ya malipo, admin akithibitisha zinafunguka</small></div><button class="btn" id="buy">Ona Premium</button></div>
+<div class="tiles"><button class="tile tk" data-s="tiktok"><span>♪</span>TikTok</button><button class="tile tr" data-s="t"><span>🏆</span>Mashindano</button><button class="tile yt" data-s="youtube"><span>▶</span>YouTube</button></div>
+<input type="search" id="q" placeholder="Tafuta game…" aria-label="Tafuta game">
+<div class="chips" id="chips" role="group" aria-label="Vichujio"></div>
+<main id="list"></main>
+</section>
+
+<section id="adm" class="hide">
+<div class="top">
+  <header><h1>⚙ Paneli ya Admin</h1><div><button class="btn" data-go="site">← Tovuti</button> <button class="btn hide" id="out">Toka</button></div></header>
+</div>
+
+<div id="login" class="panel hide">
+  <h2>Ingia kama admin</h2>
+  <p class="note" id="lnote"></p>
+  <div class="row" id="pinbox"><button class="btn p" id="inb">Ingia</button></div>
+</div>
+
+<div id="dash" class="hide">
+  <div class="stats">
+    <div class="stat"><b id="s1">0</b><span>Games</span></div>
+    <div class="stat"><b id="s2">0</b><span>Premium</span></div>
+    <div class="stat"><b id="s3">0</b><span>Yanasubiri</span></div>
+  </div>
+
+  <div class="panel"><h2>Malipo yanayosubiri uthibitisho</h2><div id="pend"></div>
+    <p class="note">Linganisha picha na ujumbe wa malipo kwenye simu yako (0771641624, Abduli) kabla ya kuthibitisha.</p></div>
+
+  <div class="panel">
+    <h2 id="ft">Ongeza game</h2>
+    <label for="gn">Jina la game</label><input id="gn">
+    <label for="gd">Maelezo</label><textarea id="gd" rows="3"></textarea>
+    <div class="g2">
+      <div><label for="gt">Aina</label><select id="gt"><option>Bure</option><option>Premium</option></select></div>
+      <div><label for="gp">Bei (TSh, kwa Premium)</label><input id="gp" type="number" min="0" step="500" value="2000"></div>
+      <div><label for="gc">Rangi ya kava</label><select id="gc"></select></div>
+      <div><label for="gg">Lebo (koma)</label><input id="gg" placeholder="Offline, Action"></div>
+    </div>
+    <label for="gi">Picha ya kava (hiari)</label><input id="gi" type="file" accept="image/*">
+    <label for="gl">Link ya download</label><input id="gl" type="url" placeholder="https://...">
+    <p class="note">Link ya game ya Premium inahifadhiwa kwa siri na inatolewa kwa aliyethibitishwa tu.</p>
+    <div class="row"><button class="btn hide" id="gx">Ghairi</button><button class="btn p" id="gs">Hifadhi</button></div>
+  </div>
+
+  <div class="panel"><h2>Games zote</h2><div id="alist"></div></div>
+</div>
+</section>
+</div>
+
+<dialog id="pay">
+  <div class="dlg">
+    <h3 id="ph">Fungua game</h3>
+    <p class="note" id="psub"></p>
+    <div class="box">Tuma pesa kwa: <b>0771641624</b><br>Jina: <b>Abduli</b></div>
+    <ol><li>Tuma kiasi kamili kwa namba hiyo.</li><li>Piga screenshot ya ujumbe wa malipo.</li><li>Weka namba yako na picha hapa, kisha tuma.</li><li>Admin akithibitisha, game inafunguka.</li></ol>
+    <input type="tel" id="ph2" placeholder="Namba yako ya simu" aria-label="Namba yako ya simu">
+    <input type="file" id="shot" accept="image/*" aria-label="Picha ya malipo">
+    <p class="note hide" id="nodb">Tovuti haijaunganishwa na seva kwenye kivinjari hiki. Tuma picha kwa WhatsApp.</p>
+    <div class="row"><button class="btn" id="cancel">Funga</button><a class="btn" id="wa" target="_blank" rel="noopener">WhatsApp</a><button class="btn p" id="send">Tuma uthibitisho</button></div>
+  </div>
+</dialog>
+<dialog id="auth"><div class="dlg"><h3>Ingia au jisajili</h3><p class="note">Tumia namba yako ya simu na nenosiri la herufi 6 au zaidi.</p>
+<input type="tel" id="ap" placeholder="Namba ya simu (07xx xxx xxx)" aria-label="Namba ya simu"><input type="password" id="aw" placeholder="Nenosiri" aria-label="Nenosiri">
+<div class="row"><button class="btn" id="acancel">Funga</button><button class="btn" id="asign">Jisajili</button><button class="btn p" id="alogin">Ingia</button></div></div></dialog>
+<div id="toast" role="status"></div>
+
+<script>
+const SB_URL="PASTE_SUPABASE_URL",SB_KEY="PASTE_ANON_KEY";
+const CFG=!SB_URL.startsWith("PASTE");
+const sb=CFG?supabase.createClient(SB_URL,SB_KEY):null;
+const COLORS={"Bahari":["#1f7a8c","#2b4c7e"],"Waridi":["#e8506a","#7a1f3d"],"Msitu":["#3d8b3d","#1d4d2b"],"Dhahabu":["#d49a00","#8a4b00"],"Zambarau":["#7b3fe4","#2b1a6b"]};
+const DEF={games:[
+ {id:"g1",n:"SuperTuxKart",d:"Mbio za magari za kufurahisha zenye wahusika wa kuchekesha. Game huru ya open-source.",c:"Bahari",t:["Bure","Offline","Mbio"],dl:36,pr:false,price:0,link:"https://supertuxkart.net/Download",date:"Ago 18, 2026"},
+ {id:"g2",n:"Mindustry",d:"Jenga viwanda na ulinde base yako dhidi ya maadui. Open-source, inafanya kazi offline.",c:"Waridi",t:["Bure","Offline","Mkakati"],dl:24,pr:false,price:0,link:"https://mindustrygame.github.io/",date:"Ago 12, 2026"},
+ {id:"g3",n:"The Battle for Wesnoth",d:"Game ya mkakati ya zamu yenye kampeni nyingi na ramani. Bure kabisa.",c:"Msitu",t:["Bure","Offline","Mkakati"],pr:false,price:0,link:"https://www.wesnoth.org/",date:"Ago 5, 2026"},
+ {id:"g4",n:"Mashindano ya Wiki",d:"Shindana na wachezaji wengine, pata zawadi kila wiki. Kwa waliolipia tu.",c:"Dhahabu",t:["Premium","Mashindano"],pr:true,price:2000,link:"",date:"Ago 20, 2026"}]};
+const $=id=>document.getElementById(id);
+let D={games:CFG?[]:JSON.parse(JSON.stringify(DEF.games))};
+const FILTERS=["Zote","Bure","Kulipia","Offline"];const SOC={tiktok:"",youtube:""};let dp=null;
+let ready=!CFG,f="Zote",s="",edit=-1,cur="",me=null,isAdm=false,G={},LP={},REQ=[];
+const tsh=n=>"TSh "+Number(n||0).toLocaleString("en-US");
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(m){const t=$("toast");t.textContent=m;t.className="on";setTimeout(()=>t.className="",2800)}
+const grad=g=>{const c=COLORS[g.c]||COLORS.Bahari;const u=(g.img||"").replace(/[^\w:\/.\-%?=&~+]/g,"");if(u)return `linear-gradient(180deg,transparent 45%,rgba(0,0,0,.75)),url(${u}) center/cover`;return `linear-gradient(135deg,${c[0]},${c[1]})`};
+const go=u=>u&&/^https?:/.test(u)?window.open(u,"_blank","noopener"):toast("Admin bado hajaweka link ya download");
+const em=p=>{let d=p.replace(/\D/g,"");if(d.startsWith("0"))d="255"+d.slice(1);return d+"@medico.tz"};
+
+async function loadGames(){if(!CFG)return;const r=await sb.from("games").select("*").order("created_at",{ascending:false});if(r.data)D.games=r.data.map(x=>({id:x.id,...x.data}));renderSite();if(isAdm)renderAdmin()}
+async function loadMine(){
+  G={};LP={};isAdm=false;
+  if(CFG&&me){
+    const l=await sb.from("game_links").select("game_id,url");(l.data||[]).forEach(x=>G[x.game_id]=x.url||"ok");
+    const r=await sb.from("requests").select("game_id,status").eq("user_id",me.id);(r.data||[]).forEach(x=>{if(x.status==="pending")LP[x.game_id]=1});
+    const a=await sb.from("admins").select("user_id").eq("user_id",me.id);isAdm=!!(a.data&&a.data.length);
+  }
+  $("acc").textContent=me?"Toka":"Ingia";
+  view(location.hash==="#admin"?"admin":"site");
+}
+async function loadReq(){
+  if(!isAdm)return;
+  const r=await sb.from("requests").select("*").eq("status","pending").order("created_at");REQ=r.data||[];
+  for(const q of REQ){const u=await sb.storage.from("proofs").createSignedUrl(q.proof_path,3600);q.url=u.data?u.data.signedUrl:""}
+  renderPend();
+}
+function renderSite(){
+  $("chips").innerHTML=FILTERS.map(x=>`<button class="chip" aria-pressed="${x===f}" data-f="${x}">${x}</button>`).join("");
+  const r=D.games.filter(g=>(f==="Zote"||(f==="Kulipia"?g.pr:g.t.includes(f)))&&g.n.toLowerCase().includes(s));
+  $("list").innerHTML=r.length?r.map(g=>{
+    const open=!g.pr||G[g.id];
+    const b=open?`<button class="btn" data-dl="${g.id}">⬇ ${g.dl||0}</button>`:`<button class="btn p" data-pay="${g.id}">${LP[g.id]?"⏳ Inasubiri · tuma tena":"🔒 Fungua · "+tsh(g.price)}</button>`;
+    return `<article class="card"><div class="cover" style="background:${grad(g)}"><span class="tag ${g.pr?"pr":""}">${g.pr?(open?"Premium · Imefunguliwa":"Premium"):"Bure"}</span>${g.img?"":esc(g.n)}</div>
+   <div class="body"><h2>${esc(g.n)}</h2><p><i>${esc(g.date||"")}</i></p><p class="ds">${esc(g.d)}</p>
+   <div class="tags">${g.t.map(x=>`<span>${esc(x)}</span>`).join("")}</div>
+   <div class="act">${b}<button class="btn" data-c="1">💬 Maoni</button><button class="btn" data-sh="${g.id}">Share</button></div></div></article>`}).join(""):'<p class="empty">Hakuna game iliyopatikana.</p>';
+}
+function renderPend(){
+  $("s3").textContent=REQ.length;
+  $("pend").innerHTML=REQ.length?REQ.map(r=>`<div class="req"><b>${esc(r.game_name)}</b> · ${tsh(r.price)}<br><small>Namba ya mteja: ${esc(r.phone)}</small>
+  <a href="${esc(r.url)}" target="_blank" rel="noopener"><img src="${esc(r.url)}" alt="Picha ya malipo"></a>
+  <div class="row"><button class="btn d" data-rj="${r.id}">Kataa</button><button class="btn p" data-ok="${r.id}">Thibitisha</button></div></div>`).join(""):'<p class="empty">Hakuna malipo yanayosubiri.</p>';
+}
+function renderAdmin(){
+  $("login").classList.toggle("hide",isAdm);$("dash").classList.toggle("hide",!isAdm);$("out").classList.toggle("hide",!me);
+  $("lnote").textContent=!CFG?"Seva haijawekwa bado. Fuata MAELEKEZO.txt.":me?"Akaunti hii si ya admin.":"Ingia kwa akaunti ya admin.";
+  $("inb").textContent=me?"Badilisha akaunti":"Ingia";
+  if(!isAdm)return;
+  $("s1").textContent=D.games.length;$("s2").textContent=D.games.filter(g=>g.pr).length;
+  renderPend();
+  $("alist").innerHTML=D.games.length?D.games.map((g,i)=>`<div class="item"><span class="sw" style="background:${grad(g)}"></span><div><b>${esc(g.n)}</b><small>${g.pr?"Premium · "+tsh(g.price):"Bure"}</small></div><button class="btn" data-e="${i}">Hariri</button><button class="btn d" data-x="${i}">Futa</button></div>`).join(""):'<p class="empty">Bado hakuna game. Ongeza ya kwanza juu.</p>';
+}
+function view(v){
+  if(CFG&&!me){["site","adm"].forEach(i=>$(i).classList.add("hide"));$("gate").classList.toggle("hide",!ready);return}
+  $("gate").classList.add("hide");
+  const a=v==="admin";document.body.classList.toggle("admin",a);
+  $("site").classList.toggle("hide",a);$("adm").classList.toggle("hide",!a);
+  if(location.hash!=="#"+v)location.hash=v;
+  if(a){renderAdmin();loadReq()}else renderSite();window.scrollTo(0,0);
+}
+function resetForm(){edit=-1;["gn","gd","gg","gl"].forEach(k=>$(k).value="");$("gt").value="Bure";$("gp").value=2000;$("ft").textContent="Ongeza game";$("gx").classList.add("hide")}
+async function signIn(signup,a="ap",w="aw"){
+  if(!CFG){toast("Seva haijawekwa bado");return}
+  const p=$(a).value,pw=$(w).value;
+  if(p.replace(/\D/g,"").length<9||pw.length<6){toast("Weka namba sahihi na nenosiri la herufi 6 au zaidi");return}
+  const r=signup?await sb.auth.signUp({email:em(p),password:pw}):await sb.auth.signInWithPassword({email:em(p),password:pw});
+  if(r.error){toast(r.error.message);return}
+  $("auth").close();toast(signup?"Umejisajili. Karibu!":"Karibu tena")
+}
+
+$("gc").innerHTML=Object.keys(COLORS).map(k=>`<option>${k}</option>`).join("");
+document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)view(b.dataset.go);
+  const t=e.target.closest("[data-s]");if(t){const k=t.dataset.s;if(k==="t"){f="Mashindano";renderSite();$("list").scrollIntoView({behavior:"smooth"
