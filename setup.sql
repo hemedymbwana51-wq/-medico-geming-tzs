@@ -1,0 +1,21 @@
+-- Bandika yote kwenye Supabase: SQL Editor > New query > Run
+create table games(id text primary key, data jsonb not null, created_at timestamptz default now());
+create table game_links(game_id text primary key references games(id) on delete cascade, url text);
+create table admins(user_id uuid primary key references auth.users(id));
+create table grants(user_id uuid references auth.users(id), game_id text references games(id) on delete cascade, primary key(user_id,game_id));
+create table requests(id uuid primary key default gen_random_uuid(), user_id uuid not null references auth.users(id), game_id text, game_name text, price int, phone text, proof_path text, status text not null default 'pending', created_at timestamptz default now());
+create or replace function is_admin() returns boolean language sql security definer stable as $$ select exists(select 1 from admins where user_id=auth.uid()) $$;
+alter table games enable row level security; alter table game_links enable row level security; alter table admins enable row level security; alter table grants enable row level security; alter table requests enable row level security;
+create policy "games read" on games for select using(true);
+create policy "games admin" on games for all using(is_admin()) with check(is_admin());
+create policy "links read" on game_links for select using(is_admin() or exists(select 1 from grants g where g.game_id=game_links.game_id and g.user_id=auth.uid()));
+create policy "links admin" on game_links for all using(is_admin()) with check(is_admin());
+create policy "admins self" on admins for select using(user_id=auth.uid());
+create policy "grants read" on grants for select using(user_id=auth.uid() or is_admin());
+create policy "grants admin" on grants for all using(is_admin()) with check(is_admin());
+create policy "req insert" on requests for insert to authenticated with check(user_id=auth.uid() and status='pending');
+create policy "req read" on requests for select using(user_id=auth.uid() or is_admin());
+create policy "req admin update" on requests for update using(is_admin());
+insert into storage.buckets(id,name,public) values('proofs','proofs',false) on conflict do nothing;
+create policy "proof upload" on storage.objects for insert to authenticated with check(bucket_id='proofs' and (storage.foldername(name))[1]=auth.uid()::text);
+create policy "proof read" on storage.objects for select to authenticated using(bucket_id='proofs' and ((storage.foldername(name))[1]=auth.uid()::text or is_admin()));
