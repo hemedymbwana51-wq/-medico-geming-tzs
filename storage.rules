@@ -1,0 +1,17 @@
+
+rules_version = '2';
+
+service firebase.storage {
+ match /b/{bucket}/o {
+
+  function admin() {
+   return request.auth != null &&
+   request.auth.uid == "WEKA_ADMIN_UID";
+  }
+
+  match /games/{gameId}/{fileName=**} {
+   allow write: if admin();
+   allow read: if false;
+  }
+ }
+}
