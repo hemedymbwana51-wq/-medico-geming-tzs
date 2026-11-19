@@ -1,0 +1,36 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+ match /databases/{database}/documents {
+
+  function signedIn() {
+   return request.auth != null;
+  }
+
+  function admin() {
+   return signedIn() &&
+   request.auth.uid == "WEKA_ADMIN_UID";
+  }
+
+  match /games/{gameId} {
+   allow read: if true;
+   allow create, update, delete: if admin();
+  }
+
+  match /paymentRequests/{requestId} {
+   allow create: if signedIn()
+    && request.resource.data.uid == request.auth.uid
+    && request.resource.data.status == "pending";
+
+   allow read, update, delete: if admin();
+  }
+
+  match /entitlements/{id} {
+   allow read: if signedIn() &&
+    (admin() || resource.data.uid == request.auth.uid);
+
+   allow write: if admin();
+  }
+ }
+}
