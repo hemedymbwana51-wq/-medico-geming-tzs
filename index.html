@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEDICO GAMING TZS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#">
+    <span class="logo">MG</span>
+    <span>MEDICO <b>GAMING TZS</b>
+      <small>🇹🇿 ALL GAMES FREE & PAID</small>
+    </span>
+  </a>
+  <button id="adminOpen">ADMIN</button>
+</header>
+
+<main>
+  <section class="hero">
+    <small>WELCOME TO</small>
+    <h1>MEDICO GAMING TZS 🇹🇿</h1>
+    <p>PPSSPP • ANDROID • PC GAMES</p>
+  </section>
+
+  <nav class="categories">
+    <button data-filter="all">ZOTE</button>
+    <button data-filter="PPSSPP">PPSSPP</button>
+    <button data-filter="Android">ANDROID</button>
+    <button data-filter="PC">PC GAMES</button>
+  </nav>
+
+  <div class="heading">
+    <h2>Magemu yote</h2>
+    <input id="search" placeholder="Tafuta gemu...">
+  </div>
+
+  <section id="gameGrid" class="game-grid">
+    Inapakia magemu...
+  </section>
+
+  <section class="contact">
+    <h3>Unahitaji msaada?</h3>
+    <a href="https://wa.me/255771641624">
+      WHATSAPP ADMIN
+    </a>
+  </section>
+</main>
+
+<footer>
+  MEDICO GAMING TZS 🇹🇿
+  <p>ENJOY YOUR LIFE 🎮</p>
+</footer>
+
+<div id="gameModal" class="modal hidden">
+  <div class="modal-card">
+    <button class="close" data-close="gameModal">×</button>
+    <div id="gameDetails"></div>
+  </div>
+</div>
+
+<div id="adminModal" class="modal hidden">
+  <div class="modal-card admin-card">
+    <button class="close" data-close="adminModal">×</button>
+    <div id="adminArea"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
