@@ -1,11 +1,10 @@
-
 export const firebaseConfig = {
-  apiKey: "WEKA_API_KEY",
-  authDomain: "WEKA_PROJECT_ID.firebaseapp.com",
-  projectId: "WEKA_PROJECT_ID",
-  storageBucket: "WEKA_PROJECT_ID.appspot.com",
-  messagingSenderId: "WEKA_MESSAGING_SENDER_ID",
-  appId: "WEKA_APP_ID"
+  apiKey: "WEKA_API_KEY_YAKO",
+  authDomain: "medico-gaming-tzs-e4ac0.firebaseapp.com",
+  projectId: "medico-gaming-tzs-e4ac0",
+  storageBucket: "medico-gaming-tzs-e4ac0.firebasestorage.app",
+  messagingSenderId: "889396604497",
+  appId: "1:889396604497:web:7ee342908cff8f09841270"
 };
 
 export const ADMIN_UID = "WEKA_ADMIN_UID";
