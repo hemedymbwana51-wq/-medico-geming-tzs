@@ -9,7 +9,7 @@ import {
 
 import {
  getFirestore,collection,getDocs,addDoc,doc,getDoc,
- updateDoc,setDoc,query,where,serverTimestamp
+ updateDoc,setDoc,query,where,serverTimestamp,onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 import {
@@ -33,6 +33,7 @@ const $=s=>document.querySelector(s);
 let currentUser=null;
 let games=[];
 let activeFilter="all";
+let gamesUnsubscribe=null;
 
 function toast(message){
  const t=$("#toast");
@@ -67,9 +68,19 @@ onAuthStateChanged(auth,async user=>{
 
 async function loadGames(){
  try{
-  const snap=await getDocs(collection(db,"games"));
-  games=snap.docs.map(d=>({id:d.id,...d.data()}));
-  renderGames();
+  if(gamesUnsubscribe) gamesUnsubscribe();
+  gamesUnsubscribe=onSnapshot(collection(db,"games"),snap=>{
+   games=snap.docs.map(d=>({id:d.id,...d.data()}));
+   renderGames();
+   // Refresh the list on the admin page when database changes.
+   if(isAdmin() && $("#adminContent") && $("#adminContent").querySelector("#adminGameList")){
+    $("#adminGameList").innerHTML=games.map(g=>`
+     <div class="admin-list"><strong>${esc(g.title)}</strong>
+     <small>${g.paid?money(g.price):"BURE"}</small></div>`).join("");
+   }
+  },()=>{
+   $("#gameGrid").innerHTML="Imeshindikana kupakia magemu. Hakiki Firebase.";
+  });
  }catch(e){
   $("#gameGrid").innerHTML="Imeshindikana kupakia magemu.";
  }
@@ -385,7 +396,9 @@ async function reviewPayment(id,approve){
  }
 }
 
-$("#adminOpen").onclick=showAdmin;
+if($("#adminOpen")) $("#adminOpen").onclick=showAdmin;
+if($("#openAdminDashboard")) $("#openAdminDashboard").onclick=showAdmin;
+if($("#isAdminPage")) showAdmin();
 $("#search").oninput=renderGames;
 
 document.querySelectorAll(".categories button").forEach(b=>{

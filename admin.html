@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEDICO GAMING TZS — Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="logo">MG</span>
+    <span>MEDICO <b>GAMING TZS</b><small>ADMIN DASHBOARD</small></span>
+  </a>
+  <button id="openAdminDashboard">FUNGUA ADMIN</button>
+</header>
+<main class="admin-page-main">
+ <section class="admin-page-intro">
+  <h1>Admin Dashboard</h1>
+  <p>Hapa ndipo unasimamia magemu na maombi ya malipo.</p>
+  <a href="index.html">← Rudi kwenye website kuu</a>
+ </section>
+ <section id="gameGrid" hidden></section>
+ <input id="search" type="hidden" value="">
+ <nav class="categories" hidden>
+  <button data-filter="all">ZOTE</button>
+  <button data-filter="PPSSPP">PPSSPP</button>
+  <button data-filter="Android">ANDROID</button>
+  <button data-filter="PC">PC</button>
+ </nav>
+</main>
+<div id="adminModal" class="modal">
+ <div class="modal-card admin-card">
+  <div id="adminArea"><p>Inafungua Admin...</p></div>
+ </div>
+</div>
+<div id="gameModal" class="modal hidden"><div class="modal-card"><div id="gameDetails"></div></div></div>
+<div id="toast" class="toast"></div>
+<div id="isAdminPage" hidden></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
