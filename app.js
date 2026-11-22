@@ -252,7 +252,7 @@ async function download(gameId) {
 
 function showAdmin() {
   $("#adminModal").classList.remove("hidden");
-
+  alert("SHOW ADMIN INAFANYA KAZI");
   if (isAdmin()) {
     adminDashboard();
     return;
