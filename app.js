@@ -269,6 +269,9 @@ function showAdmin() {
   `;
 
   $("#adminLogin").onclick = async () => {
+  alert("KITufe CHA INGIA KINAJIBU");
+
+  const email = $("#adminEmail").value.trim();
     const email = $("#adminEmail").value.trim();
     const password = $("#adminPass").value;
 
