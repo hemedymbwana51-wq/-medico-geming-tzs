@@ -364,7 +364,37 @@ function adminGames() {
   `).join("");
 }
 
+
 async function saveGame() {
+  const title = $("#gTitle").value.trim();
+  const driveUrl = $("#gFile").value.trim();
+  const price = Number($("#gPrice").value || 0);
+
+  if (!title || !driveUrl) {
+    return toast("Weka jina na Google Drive link.");
+  }
+
+  try {
+    const id = crypto.randomUUID();
+
+    await setDoc(doc(db, "games", id), {
+      title,
+      category: $("#gCat").value,
+      description: $("#gDesc").value.trim(),
+      price,
+      paid: price > 0,
+      imageUrl: $("#gImage").value.trim(),
+      driveUrl,
+      createdAt: serverTimestamp()
+    });
+
+    toast("Gemu limehifadhiwa.");
+    adminGames();
+  } catch (e) {
+    toast("KOSA: " + e.message);
+  }
+}
+
   const title = $("#gTitle").value.trim();
   const file = $("#gFile").files[0];
   const price = Number($("#gPrice").value || 0);
