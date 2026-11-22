@@ -240,7 +240,17 @@ async function showGame(id) {
   }
 }
 
-async function download(gameId) {
+
+function download(gameId) {
+  const game = games.find(g => g.id === gameId);
+
+  if (!game || !game.driveUrl) {
+    return toast("Link ya kupakua haipatikani.");
+  }
+
+  window.open(game.driveUrl, "_blank");
+}
+
   try {
     const fn = httpsCallable(functions, "getGameDownloadUrl");
     const result = await fn({ gameId });
