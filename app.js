@@ -377,7 +377,9 @@ async function saveGame() {
     const id = crypto.randomUUID();
     const path = `games/${id}/${file.name}`;
 
-    await uploadBytes(ref(storage, path), file);
+    alert("INAPAKIA FAILI...");
+await uploadBytes(ref(storage, path), file);
+alert("FAILi LIMEPakiwa!");
 
     await setDoc(doc(db, "games", id), {
       title,
