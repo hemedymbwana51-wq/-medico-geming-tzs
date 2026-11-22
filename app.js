@@ -213,7 +213,7 @@ function showAdmin(){
  <button class="primary" id="adminLogin">INGIA</button>
  `;
 
- $("#adminLogin").onclick=async()=>{
+ alert("KITufe CHA INGIA KINAJIBU");
   try{
    await signInWithEmailAndPassword(
     auth,
