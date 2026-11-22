@@ -351,7 +351,10 @@ function adminGames() {
     <div id="adminGameList"></div>
   `;
 
-  $("#saveGame").onclick = saveGame;
+  $("#saveGame").onclick = () => {
+  alert("KITufe CHA KUHIFADHI KINAJIBU");
+  saveGame();
+};
 
   $("#adminGameList").innerHTML = games.map(g => `
     <div class="admin-list">
