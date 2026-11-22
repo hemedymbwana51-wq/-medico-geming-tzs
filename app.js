@@ -214,15 +214,18 @@ function showAdmin(){
 
  $("#adminLogin").onclick=async()=>{
   try{
-   const email = $("#adminEmail").value.trim();
-const password = $("#adminPass").value;
+   
 const result = await signInWithEmailAndPassword(auth, email, password);
-alert("FIREBASE LOGIN IMEFANIKIWA");
-    auth,
-    $("#adminEmail").value,
-    $("#adminPass").value
-   );
 
+alert("FIREBASE LOGIN IMEFANIKIWA");
+
+if(result.user.uid !== ADMIN_UID){
+ await signOut(auth);
+ throw Error("Hii si akaunti ya Admin.");
+}
+
+currentUser = result.user;
+adminDashboard();
    if(auth.currentUser.uid!==ADMIN_UID){
     await signOut(auth);
     throw Error("Hii si akaunti ya Admin.");
