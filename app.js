@@ -344,8 +344,8 @@ function adminGames() {
     <label>URL ya picha</label>
     <input id="gImage">
 
-    <label>Faili la gemu</label>
-    <input id="gFile" type="file">
+    <label>Google Drive Download Link</label>
+<input id="gFile" type="url" placeholder="Bandika link ya Google Drive">
 
     <button class="primary" id="saveGame">HIFADHI GEMU</button>
     <div id="adminGameList"></div>
