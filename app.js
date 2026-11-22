@@ -271,10 +271,9 @@ alert("SHOW ADMIN INAFANYA KAZI");
   $("#adminLogin").onclick = async () => {
   alert("KITufe CHA INGIA KINAJIBU");
 
-  const email = $("#adminEmail").value.trim();
-    const email = $("#adminEmail").value.trim();
-    const password = $("#adminPass").value;
-
+  
+const email = $("#adminEmail").value.trim();
+const password = $("#adminPass").value;
     if (!email || !password) {
       return toast("Weka Email na Password.");
     }
