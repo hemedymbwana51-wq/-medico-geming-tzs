@@ -87,6 +87,7 @@ async function loadGames(){
 }
 
 function renderGames(){
+ if(!$("#search") || !$("#gameGrid")) return;
  const term=$("#search").value.toLowerCase();
 
  const shown=games.filter(g=>
