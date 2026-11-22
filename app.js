@@ -215,7 +215,10 @@ function showAdmin(){
 
  alert("KITufe CHA INGIA KINAJIBU");
   try{
-   await signInWithEmailAndPassword(
+   const email = $("#adminEmail").value.trim();
+const password = $("#adminPass").value;
+const result = await signInWithEmailAndPassword(auth, email, password);
+alert("FIREBASE LOGIN IMEFANIKIWA");
     auth,
     $("#adminEmail").value,
     $("#adminPass").value
