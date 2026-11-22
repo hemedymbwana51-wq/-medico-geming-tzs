@@ -60,7 +60,6 @@ onAuthStateChanged(auth, async user => {
  currentUser = user;
  await loadGames();
 });
- currentUser=user;
  if(!user){
   try{await signInAnonymously(auth)}
   catch(e){toast("Washa Anonymous Sign-in Firebase.")}
