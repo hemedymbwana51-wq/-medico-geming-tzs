@@ -56,7 +56,10 @@ function isAdmin(){
  return currentUser && currentUser.uid===ADMIN_UID;
 }
 
-onAuthStateChanged(auth,async user=>{
+onAuthStateChanged(auth, async user => {
+ currentUser = user;
+ await loadGames();
+});
  currentUser=user;
  if(!user){
   try{await signInAnonymously(auth)}
