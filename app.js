@@ -468,7 +468,9 @@ if ($("#adminOpen")) {
 }
 
 if ($("#openAdminDashboard")) {
-  $("#openAdminDashboard").onclick = showAdmin;
+  $("#openAdminDashboard").addEventListener("click", () => {
+    showAdmin();
+  });
 }
 
 if ($("#isAdminPage")) {
