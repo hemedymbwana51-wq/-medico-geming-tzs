@@ -1,4 +1,3 @@
-
 rules_version = '2';
 
 service cloud.firestore {
@@ -10,7 +9,7 @@ service cloud.firestore {
 
   function admin() {
    return signedIn() &&
-   request.auth.uid == "WEKA_ADMIN_UID";
+   request.auth.uid == "Jzoq0TmlmGPo803SGqBhNmXvLi52";
   }
 
   match /games/{gameId} {
