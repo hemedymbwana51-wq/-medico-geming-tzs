@@ -462,7 +462,27 @@ function compressImage(file, maxW = 480, quality = 0.72) {
     img.src = url;
   });
 }
+async function deleteGame(id) {
+  const game = games.find(g => g.id === id);
 
+  if (!game) return toast("Gemu halijapatikana.");
+
+  if (!isAdmin()) {
+    return toast("Admin pekee ndiye anayeruhusiwa.");
+  }
+
+  if (!confirm("Una uhakika unataka kufuta gemu: " + game.title + "?")) {
+    return;
+  }
+
+  try {
+    await deleteDoc(doc(db, "games", id));
+    toast("Gemu limefutwa kikamilifu.");
+  } catch (e) {
+    console.error("deleteGame:", e);
+    toast("Imeshindikana kufuta: " + (e.code || e.message));
+  }
+}
 async function saveGame() {
   const title = $("#gTitle").value.trim();
   const driveUrl = $("#gFile").value.trim();
