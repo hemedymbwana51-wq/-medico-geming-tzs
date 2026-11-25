@@ -251,12 +251,7 @@ function download(gameId) {
   window.open(game.driveUrl, "_blank");
 }
 
-  try {
-    const fn = httpsCallable(functions, "getGameDownloadUrl");
-    const result = await fn({ gameId });
-    window.location.href = result.data.url;
-  } catch (e) {
-    toast(e.message || "Hujaruhusiwa kupakua gemu.");
+
   }
 }
 
