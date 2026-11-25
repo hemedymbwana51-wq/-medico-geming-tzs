@@ -1,0 +1,241 @@
+:root {
+  --bg:#0c1422;
+  --panel:#152236;
+  --text:#edf3fb;
+  --orange:#ef806f;
+  --line:#293a50;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  line-height:1.4;
+}
+
+button {
+  cursor:pointer;
+}
+
+/* Topbar ya admin */
+.topbar {
+  padding:10px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#101b2c;
+  border-bottom:1px solid var(--line);
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:white;
+  text-decoration:none;
+  font-size:12px;
+}
+
+.brand b {
+  color:var(--orange);
+}
+
+.brand small {
+  display:block;
+  font-size:8px;
+  color:#93a5ba;
+}
+
+.logo {
+  background:var(--orange);
+  padding:9px;
+  border-radius:9px;
+  color:#172033;
+  font-weight:bold;
+  font-size:11px;
+}
+
+/* Ukurasa wa admin */
+.admin-page-main {
+  max-width:900px;
+  margin:auto;
+  padding:12px;
+}
+
+.admin-page-intro {
+  background:var(--panel);
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+
+.admin-page-intro h1 {
+  font-size:17px;
+  margin:0 0 6px;
+}
+
+.admin-page-intro p {
+  font-size:12px;
+  margin:6px 0;
+}
+
+.admin-page-intro a {
+  color:#9bcfff;
+  font-size:12px;
+}
+
+#adminModal {
+  display:grid;
+  position:static;
+  place-items:stretch;
+  background:none;
+  padding:0;
+}
+
+.modal {
+  position:fixed;
+  inset:0;
+  background:#030812e8;
+  z-index:10;
+  display:grid;
+  place-items:center;
+  padding:12px;
+}
+
+.hidden {
+  display:none!important;
+}
+
+.modal-card {
+  position:relative;
+  width:100%;
+  max-width:460px;
+  max-height:90vh;
+  overflow:auto;
+  background:#142238;
+  border-radius:12px;
+  padding:16px;
+  border:1px solid #40516a;
+}
+
+#adminModal .modal-card {
+  max-width:900px;
+  width:100%;
+}
+
+.admin-card {
+  border-top:3px solid #58a6df;
+}
+
+.close {
+  float:right;
+  background:none;
+  border:0;
+  color:white;
+  font-size:22px;
+}
+
+h2 {
+  font-size:15px;
+  margin:6px 0 8px;
+}
+
+h3 {
+  font-size:13px;
+  margin:12px 0 6px;
+}
+
+label {
+  display:block;
+  font-size:11px;
+  color:#93a5ba;
+  margin-top:8px;
+}
+
+.modal-card input,
+.modal-card textarea,
+.modal-card select {
+  width:100%;
+  padding:8px;
+  margin:4px 0 10px;
+  background:#0c1728;
+  color:white;
+  border:1px solid #344861;
+  border-radius:6px;
+  font-size:12px;
+}
+
+.primary {
+  background:var(--orange);
+  color:#251b20;
+  padding:8px 12px;
+  border:0;
+  border-radius:7px;
+  font-weight:bold;
+  font-size:12px;
+  margin:4px 0;
+}
+
+.secondary {
+  background:#29425e;
+  color:white;
+  padding:7px 10px;
+  border:0;
+  border-radius:7px;
+  font-size:12px;
+  margin:3px 2px;
+}
+
+.danger {
+  background:#753d45;
+  color:white;
+  padding:7px 10px;
+  border:0;
+  border-radius:7px;
+  font-size:11px;
+  margin-top:6px;
+}
+
+.paybox {
+  background:#0d1a2b;
+  padding:10px;
+  border:1px dashed #6b819b;
+  border-radius:8px;
+  font-size:11px;
+}
+
+.admin-list {
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.admin-list strong {
+  font-size:12px;
+}
+
+.admin-list small {
+  display:block;
+  color:#93a5ba;
+  font-size:11px;
+}
+
+.toast {
+  display:none;
+  position:fixed;
+  bottom:16px;
+  left:5%;
+  width:90%;
+  padding:10px;
+  background:var(--orange);
+  color:#222;
+  border-radius:8px;
+  text-align:center;
+  font-size:12px;
+  z-index:20;
+}
