@@ -434,7 +434,10 @@ function adminGames() {
   `;
 
   document.querySelectorAll("[data-delete-game]").forEach(button => {
-    button.onclick = () => deleteGame(button.dataset.deleteGame);
+    button.onclick = () => {
+  alert("Kitufe kimebonyezwa!");
+  deleteGame(button.dataset.deleteGame);
+};
   });
 }
 
