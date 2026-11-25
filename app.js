@@ -420,12 +420,22 @@ function adminGames() {
     }
   };
 
-  $("#adminGameList").innerHTML = games.map(g => `
-    <div class="admin-list">
-      <strong>${esc(g.title)}</strong>
-      <small>${g.paid ? money(g.price) : "BURE"}</small>
-    </div>
-  `).join("");
+    $("#adminGameList").innerHTML = `
+    <h3>MAGEMU YALIYOPO</h3>
+    ${games.map(g => `
+      <div class="admin-list">
+        <strong>${esc(g.title)}</strong>
+        <small>${g.paid ? money(g.price) : "BURE"}</small>
+        <button class="danger" data-delete-game="${esc(g.id)}">
+          FUTA GEMU
+        </button>
+      </div>
+    `).join("")}
+  `;
+
+  document.querySelectorAll("[data-delete-game]").forEach(button => {
+    button.onclick = () => deleteGame(button.dataset.deleteGame);
+  });
 }
 
 
